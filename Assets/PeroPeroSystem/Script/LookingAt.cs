@@ -19,7 +19,7 @@ public class LookingAt : MonoBehaviour {
         if (_targetAnimator == null) {
             return;
         }
-        _targetAnimator.SetLookAtWeight(_lookAtWeight, 0.3f, 0.6f, 1.0f, 0.5f);
+        _targetAnimator.SetLookAtWeight(_lookAtWeight, 0.3f, 0.6f, 1.0f, 0.25f);
         if (_lookAtObject != null) {
             _targetAnimator.SetLookAtPosition(_lookAtObject.position);
         }

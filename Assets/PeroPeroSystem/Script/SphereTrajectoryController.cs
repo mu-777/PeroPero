@@ -28,6 +28,7 @@ public class SphereTrajectoryController : MonoBehaviour {
     void Update() {
         UpdateKeyBoardSim(IsKeyBoardSimulation);
         UpdateCenterState();
+        UpdateCameraPos(_pitch, _azimuth);
     }
 
     private void UpdateCenterState() {
@@ -46,6 +47,7 @@ public class SphereTrajectoryController : MonoBehaviour {
     }
 
     public void UpdateSmartphoneSensorData(SmartphoneSensorData sensorData) {
+        print(sensorData.pitch);
         _pitch = MyUtils.lowpassFilter(sensorData.pitch, _pitch, 0.8f);
         _azimuth = MyUtils.lowpassFilter(sensorData.azimuth, _azimuth, 0.8f);
     }
