@@ -47,9 +47,9 @@ public class SphereTrajectoryController : MonoBehaviour {
     }
 
     public void UpdateSmartphoneSensorData(SmartphoneSensorData sensorData) {
-        print(sensorData.pitch);
-        _pitch = MyUtils.lowpassFilter(sensorData.pitch, _pitch, 0.8f);
-        _azimuth = MyUtils.lowpassFilter(sensorData.azimuth, _azimuth, 0.8f);
+        print(sensorData.ori.roll);
+        _pitch = MyUtils.lowpassFilter(sensorData.ori.roll + 90f, _pitch, 0.9f);
+        _azimuth = MyUtils.lowpassFilter(sensorData.ori.azimuth, _azimuth, 0.9f);
     }
 
     public void UpdateKeyBoardSim(bool isActive) {

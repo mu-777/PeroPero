@@ -13,16 +13,20 @@ using WebSocketSharp.Net;
 
 [System.Serializable]
 public class SmartphoneSensorData {
-    public float pitch;
-    public float azimuth;
-    public float roll;
 
+    [System.Serializable]
+    public class Orientation {
+        public float pitch;
+        public float azimuth;
+        public float roll;
+    }
+
+    public Orientation ori;
 
     public SmartphoneSensorData() {
 
     }
     public static SmartphoneSensorData FromJSON(string jsonString) {
-        MonoBehaviour.print(jsonString);
         return JsonUtility.FromJson<SmartphoneSensorData>(jsonString);
     }
 
@@ -50,12 +54,10 @@ public class SmartphoneDataReceiver : MonoBehaviour {
         }
 
         public void Run() {
-            print(_nodeBinPath);
-            print(_scriptPath);
             _process = new System.Diagnostics.Process();
             //_process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             _process.StartInfo.FileName = _nodeBinPath;
-            _process.StartInfo.Arguments = _scriptPath;
+            _process.StartInfo.Arguments = _scriptPath + " " + _ip + " " + _port;
             _process.EnableRaisingEvents = true;
             _process.Exited += OnExit;
             _process.Start();
@@ -109,7 +111,6 @@ public class SmartphoneDataReceiver : MonoBehaviour {
     }
 
     private void OnWSMessage(object sender, MessageEventArgs e) {
-        print("Received: " + e.Data);
         _data = SmartphoneSensorData.FromJSON(e.Data);
         _isReceived = true;
     }

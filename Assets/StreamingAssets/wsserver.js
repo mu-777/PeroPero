@@ -1,10 +1,11 @@
 var ws = require('ws').Server;
 
 var wss = new ws({
-    host: '127.0.0.1',
-    port: 3000
+    host: process.argv[2],
+    port: process.argv[3]
 });
 
+console.log("ws://" + process.argv[2] + ":" + process.argv[3]);
 
 wss.broadcast = function (data) {
     for (var i in this.clients) {
